@@ -15,6 +15,9 @@ public class CoinPicker : MonoBehaviour
         {
             coins++;
             coinsText.text = coins.ToString();
+
+            Debug.Log("Got more point = " + coins);
+
             Destroy(collision.gameObject);
         }
     }
