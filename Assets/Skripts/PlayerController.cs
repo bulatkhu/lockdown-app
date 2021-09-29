@@ -36,6 +36,7 @@ if (moveInput == 0)
         }
 else if (Input.GetKey(KeyCode.LeftArrow))
         {
+            animator.SetBool("isRunning", true);
             spriteRenderer.flipX = true;
         }
       else
