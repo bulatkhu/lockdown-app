@@ -1,14 +1,15 @@
 ﻿<Properties StartupConfiguration="{38D706DB-EA61-A306-6513-5FD3B09A36F6}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PlayerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Skripts/PlayerController.cs">
     <Files>
-      <File FileName="Assets/PlayerController.cs" Line="18" Column="6" />
-      <File FileName="Assets/CoinPicker.cs" />
+      <File FileName="Assets/Skripts/PlayerController.cs" Line="25" Column="9" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Lockdown_start" expanded="True" selected="True">
-            <Node name="Assets" expanded="True" />
+          <Node name="Lockdown_start" expanded="True">
+            <Node name="Assets" expanded="True" selected="True">
+              <Node name="Skripts" expanded="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
@@ -16,7 +17,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="77746c93-0693-46c5-98be-efc70a85d265" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="6d7e16a4-e07d-4958-ae84-d00ccf86d6e0" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
