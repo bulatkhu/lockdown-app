@@ -1,8 +1,10 @@
 ﻿<Properties StartupConfiguration="{38D706DB-EA61-A306-6513-5FD3B09A36F6}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Skripts/PlayerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Skripts/GameController.cs">
     <Files>
-      <File FileName="Assets/Skripts/PlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Skripts/Features.cs" Line="9" Column="22" />
+      <File FileName="Assets/Skripts/PlayerController.cs" Line="70" Column="2" />
+      <File FileName="Assets/Skripts/NextLevel.cs" Line="18" Column="5" />
+      <File FileName="Assets/Skripts/HealthBar.cs" Line="24" Column="1" />
+      <File FileName="Assets/Skripts/GameController.cs" Line="12" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -10,7 +12,7 @@
           <Node name="Lockdown_start" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Skripts" expanded="True">
-                <Node name="PlayerController.cs" selected="True" />
+                <Node name="GameController.cs" selected="True" />
               </Node>
             </Node>
           </Node>

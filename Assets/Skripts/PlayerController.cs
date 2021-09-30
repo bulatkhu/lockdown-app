@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public int maxHP = 100;
     public int currentHP;
     public HealthBar hp;
-    
+
 
     void Start()
     {
@@ -23,14 +23,15 @@ public class PlayerController : MonoBehaviour
         hp.MaxHp(maxHP);
         
     }
+    
 
     void Update()
     {
 
         moveInput = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
-
-        if (moveInput == 0)
+      
+            if (moveInput == 0)
         {
             animator.SetBool("isRunning", false);
 
@@ -56,10 +57,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void TakeDamage(int damage)
-    {
+    void TakeDamage(int damage) { 
+    
         currentHP -= damage;
         hp.CurrentHp(currentHP);
     }
+   
 }
 
