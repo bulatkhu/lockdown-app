@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     public float speed;
@@ -18,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask platformLayerMask;
     // jumping
     public Vector2 jumpForce = new Vector2(10, 10);
-    
+
 
     void Start()
     {
@@ -27,8 +26,9 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentHP = maxHP;
         hp.MaxHp(maxHP);
-
+        
     }
+
 
     // void jumpController()
     // {
@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
+        //for HP example
         if (Input.GetKeyDown(KeyCode.Space))
         {
             float jumpVelocity = 10f;
@@ -84,8 +85,8 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void TakeDamage(int damage)
-    {
+    void TakeDamage(int damage) {
+
         currentHP -= damage;
         hp.CurrentHp(currentHP);
     }
