@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
+    [SerializeField]
+    private float speed;
+    [SerializeField]
+    private float minBoundY = -3.1f, maxBoundY = 0f, minBoundX = -11.6f, maxBoundX = 110f;
+    private Vector3 tempPos;
+    private float xAxis, yAxis;
     private Rigidbody2D rb;
     public Animator animator;
     public SpriteRenderer spriteRenderer;
-    private float moveInput;
+    
     public int maxHP = 100;
     public int currentHP;
     public HealthBar hp;
@@ -26,7 +31,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentHP = maxHP;
         hp.MaxHp(maxHP);
-        
+
     }
 
 
@@ -41,10 +46,14 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        moveInput = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        float xAxis = Input.GetAxis("Horizontal");
+        float yAxis = Input.GetAxis("Vertical");
 
-        if (moveInput == 0)
+        HandleMovement(xAxis, yAxis);
+
+        //rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+
+        if ( xAxis == 0)
         {
             animator.SetBool("isRunning", false);
 
@@ -82,6 +91,28 @@ public class PlayerController : MonoBehaviour
         //     GetComponent<Rigidbody2D>().AddForce(new Vector2(0,10), ForceMode2D.Impulse);
         //     // TakeDamage(20);
         // }
+
+    }
+    //Movement !!!!!!!!!!!!
+    void HandleMovement(float xAxis, float yAxis)
+    {
+        
+
+        tempPos = transform.position;
+        tempPos.x += xAxis * speed * Time.deltaTime;
+        tempPos.y += yAxis * speed * Time.deltaTime;
+        
+
+        if (tempPos.x < minBoundX)
+            tempPos.x = minBoundX;
+        if (tempPos.x > maxBoundX)
+            tempPos.x = maxBoundX;
+
+        if (tempPos.y < minBoundY)
+            tempPos.y = minBoundY;
+        if (tempPos.y > maxBoundY)
+            tempPos.y = maxBoundY;
+        transform.position = tempPos;
 
     }
 

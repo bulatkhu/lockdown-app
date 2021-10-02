@@ -10,9 +10,9 @@ public class NextLevel : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.x > 169)
+        if (transform.position.x > 109)
         {
-            SceneManager.LoadScene("Map");
+            SceneManager.LoadScene("Level2");
         }
     }
     
