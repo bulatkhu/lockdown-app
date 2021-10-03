@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CoinPicker : MonoBehaviour
 {
-    private float kid = 0;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
