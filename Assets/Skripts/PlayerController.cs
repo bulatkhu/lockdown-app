@@ -16,8 +16,9 @@ public class PlayerController : MonoBehaviour
     public int currentHP;
     public HealthBar hp;
     AudioSource audioSource;
+    
 
-
+  
 
     void Start()
     {
@@ -31,60 +32,38 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-
+        
         float xAxis = Input.GetAxis("Horizontal");
         float yAxis = Input.GetAxis("Vertical");
-        bool isMoving;
         HandleMovement(xAxis, yAxis);
 
         if (xAxis == 0)
         {
+            
             animator.SetBool("isRunning", false);
-
-
+            audioSource.Stop();
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
+            
 
             animator.SetBool("isRunning", true);
             spriteRenderer.flipX = true;
-
-
+            StepSound();
         }
-        else
+        else 
         {
             animator.SetBool("isRunning", true);
             spriteRenderer.flipX = false;
-
-
+            StepSound();
         }
 
-        //TODO: fix audioSource  
-        if (rb.velocity.x != 0)
-        {
-            isMoving = true;
-
-        }
-        else
-        {
-            isMoving = false;
-        }
-        if (isMoving)
-        {
-            if (!audioSource.isPlaying)
-                audioSource.Play();
-        }
-        else
-        {
-            audioSource.Stop();
-        }
-
+        
     }
 
     //Movement !!!!!!!!!!!!
     void HandleMovement(float xAxis, float yAxis)
     {
-
 
         tempPos = transform.position;
         tempPos.x += xAxis * speed * Time.deltaTime;
@@ -109,5 +88,13 @@ public class PlayerController : MonoBehaviour
 
         currentHP -= damage;
         hp.CurrentHp(currentHP);
+    }
+    
+  void StepSound()
+    {
+        if(!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
     }
 }
