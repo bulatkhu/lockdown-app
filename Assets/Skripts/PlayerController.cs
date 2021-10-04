@@ -9,15 +9,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float minBoundY = -3.1f, maxBoundY = 0f, minBoundX = -11.6f, maxBoundX = 110f;
     private Vector3 tempPos;
-    private float xAxis, yAxis;
     private Rigidbody2D rb;
     public Animator animator;
     public SpriteRenderer spriteRenderer;
-
     public int maxHP = 100;
     public int currentHP;
     public HealthBar hp;
-    private BoxCollider2D _boxCollider2D;
+    AudioSource audioSource;
+
+
 
     void Start()
     {
@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentHP = maxHP;
         hp.MaxHp(maxHP);
+        audioSource = GetComponent<AudioSource>();
 
     }
     void Update()
@@ -33,17 +34,21 @@ public class PlayerController : MonoBehaviour
 
         float xAxis = Input.GetAxis("Horizontal");
         float yAxis = Input.GetAxis("Vertical");
-
+        bool isMoving;
         HandleMovement(xAxis, yAxis);
+
         if (xAxis == 0)
         {
             animator.SetBool("isRunning", false);
 
+
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
+
             animator.SetBool("isRunning", true);
             spriteRenderer.flipX = true;
+
 
         }
         else
@@ -51,17 +56,31 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isRunning", true);
             spriteRenderer.flipX = false;
 
+
         }
 
-        //for HP example
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        //TODO: fix audioSource  
+        if (rb.velocity.x != 0)
         {
-            
-            TakeDamage(20);
+            isMoving = true;
+
+        }
+        else
+        {
+            isMoving = false;
+        }
+        if (isMoving)
+        {
+            if (!audioSource.isPlaying)
+                audioSource.Play();
+        }
+        else
+        {
+            audioSource.Stop();
         }
 
     }
+
     //Movement !!!!!!!!!!!!
     void HandleMovement(float xAxis, float yAxis)
     {
@@ -85,10 +104,10 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
 
         currentHP -= damage;
         hp.CurrentHp(currentHP);
     }
-}    
+}
