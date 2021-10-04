@@ -16,9 +16,9 @@ public class PlayerController : MonoBehaviour
     public int currentHP;
     public HealthBar hp;
     AudioSource audioSource;
-    
 
-  
+
+    private Animation anim;
 
     void Start()
     {
@@ -28,37 +28,38 @@ public class PlayerController : MonoBehaviour
         currentHP = maxHP;
         hp.MaxHp(maxHP);
         audioSource = GetComponent<AudioSource>();
+        anim = GetComponent<Animation>();
 
     }
     void Update()
     {
-        
+
         float xAxis = Input.GetAxis("Horizontal");
         float yAxis = Input.GetAxis("Vertical");
         HandleMovement(xAxis, yAxis);
 
+
         if (xAxis == 0)
         {
-            
+
             animator.SetBool("isRunning", false);
             audioSource.Stop();
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            
+
 
             animator.SetBool("isRunning", true);
             spriteRenderer.flipX = true;
             StepSound();
         }
-        else 
+        else
         {
             animator.SetBool("isRunning", true);
             spriteRenderer.flipX = false;
             StepSound();
         }
 
-        
     }
 
     //Movement !!!!!!!!!!!!
@@ -88,13 +89,20 @@ public class PlayerController : MonoBehaviour
 
         currentHP -= damage;
         hp.CurrentHp(currentHP);
+
     }
-    
-  void StepSound()
+
+    void StepSound()
     {
-        if(!audioSource.isPlaying)
+        if (!audioSource.isPlaying)
         {
             audioSource.Play();
         }
+    }
+
+     public void Death()
+    {
+        animator.Play("Death");
+
     }
 }

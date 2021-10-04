@@ -21,7 +21,6 @@ public class EnemyController : MonoBehaviour
     private float attackFinishedTimer;
 
     SpriteRenderer m_SpriteRenderer;
-    
     GameObject player;
 
     public bool ifAttackCalled = false;
@@ -68,19 +67,20 @@ public class EnemyController : MonoBehaviour
 
     public void Attack()
     {
-        
 
         if (Time.time > attackTimer)
         {
             ifAttackCalled = true;
             m_SpriteRenderer = GetComponent<SpriteRenderer>();
             m_SpriteRenderer.color = Color.red;
-            player.GetComponent<PlayerController>().TakeDamage(10);
+            player.GetComponent<PlayerController>().TakeDamage(50);
 
+   
             attackFinishedTimer = Time.time + attackFinishedWaitTime;
             attackTimer = Time.time + attackWait;
             
         }
+        
         
     }
 
