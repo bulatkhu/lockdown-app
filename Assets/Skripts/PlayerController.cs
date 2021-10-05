@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
     private float speed;
     [SerializeField]
     private float minBoundY = -3.1f, maxBoundY = 0f, minBoundX = -11.6f, maxBoundX = 110f;
+    private float xAxis, yAxis;
     private Vector3 tempPos;
+    private Vector3 tempScale;
     private Rigidbody2D rb;
     public Animator animator;
     public SpriteRenderer spriteRenderer;
@@ -16,9 +18,17 @@ public class PlayerController : MonoBehaviour
     public int currentHP;
     public HealthBar hp;
     AudioSource audioSource;
+    [SerializeField]
+    private float shootWaitTime = 0.5f;
+    private float waitBeforeShooting;
+    [SerializeField]
+    private float moveWaitTime = 0.3f;
+    private float waitBeforeMoving;
+    private bool canMove = true;
+    private Shooting shooting;
+   
 
-
-    private Animation anim;
+    //private Animation anim;
 
     void Start()
     {
@@ -28,48 +38,123 @@ public class PlayerController : MonoBehaviour
         currentHP = maxHP;
         hp.MaxHp(maxHP);
         audioSource = GetComponent<AudioSource>();
-        anim = GetComponent<Animation>();
-
+        //anim = GetComponent<Animation>();
+        shooting = GetComponent<Shooting>();
+   
     }
     void Update()
     {
 
         float xAxis = Input.GetAxis("Horizontal");
         float yAxis = Input.GetAxis("Vertical");
-        HandleMovement(xAxis, yAxis);
+        HandleMovement();
+       
+        Shooting();
+        CheckIfCanMove();
+        // FaceDirection(true);
 
+    
+ 
+        if (!canMove)
+            return;
 
+        if (xAxis > 0)
+        {
+            animator.SetBool("isRunning", true);
+            FaceDirection(true);
+            StepSound();
+        }
+
+        if (xAxis < 0)
+        {
+            animator.SetBool("isRunning", true);
+            FaceDirection(false);
+            StepSound();
+
+        }
         if (xAxis == 0)
         {
-
             animator.SetBool("isRunning", false);
             audioSource.Stop();
         }
+        /*if (xAxis == 0)
+        { 
+            animator.SetBool("isRunning", false);
+            audioSource.Stop();
+
+        }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-
-
             animator.SetBool("isRunning", true);
-            spriteRenderer.flipX = true;
+            //spriteRenderer.flipX = true;
+            //tempScale.x = -1f;
+           FaceDirection(false);
             StepSound();
         }
         else
         {
             animator.SetBool("isRunning", true);
-            spriteRenderer.flipX = false;
+            //spriteRenderer.flipX = false;
+            //tempScale.x = 1f;
+            //FaceDirection(true);
             StepSound();
         }
+        */
+    }
+
+    public void FaceDirection(bool faceRight)
+    {
+        tempScale = transform.localScale;
+        if (faceRight)
+            tempScale.x = 1f;
+        else
+            tempScale.x = -1f;
+
+        transform.localScale = tempScale;
+    }
+
+    void StopMovement()
+    {
+        canMove = false;
+        waitBeforeMoving = Time.time + moveWaitTime;
+    }
+
+    void Shoot()
+    {
+        waitBeforeShooting = Time.time + shootWaitTime;
+        StopMovement();
+        animator.Play("Shooting");
+        shooting.Shoot(transform.localScale.x);
 
     }
 
-    //Movement !!!!!!!!!!!!
-    void HandleMovement(float xAxis, float yAxis)
+    void CheckIfCanMove()
     {
+        if (Time.time > waitBeforeMoving)
+            canMove = true;
+    }
+
+    void Shooting()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (Time.time > waitBeforeShooting)
+                Shoot();
+        }
+
+    }
+    //Movement !!!!!!!!!!!!
+    void HandleMovement()
+    {
+       float xAxis = Input.GetAxis("Horizontal");
+       float yAxis = Input.GetAxis("Vertical");
 
         tempPos = transform.position;
         tempPos.x += xAxis * speed * Time.deltaTime;
         tempPos.y += yAxis * speed * Time.deltaTime;
 
+        if (!canMove)
+            return;
 
         if (tempPos.x < minBoundX)
             tempPos.x = minBoundX;
@@ -100,7 +185,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-     public void Death()
+    public void Death()
     {
         animator.Play("Death");
 
