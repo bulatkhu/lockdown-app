@@ -6,14 +6,10 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField]
     private float moveSpeed = 15f;
-
     [SerializeField]
     private float damageAmmount = 35f;
-
     private Vector3 moveVector = Vector3.zero;
-
     private Vector3 tempScale;
-  
     private void Update()
     {
         MoveBullet();
@@ -34,12 +30,15 @@ public class Bullet : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.tag == "Enemy")
         {
-
+     
+            collision.transform.GetComponent<EnemyHealth>().TakeDamage(damageAmmount);
+            Destroy(gameObject);
         }
-    }
 
+    }
 }
+
