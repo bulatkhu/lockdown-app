@@ -80,7 +80,7 @@ public class EnemyController : MonoBehaviour
             ifAttackCalled = true;
             m_SpriteRenderer = GetComponent<SpriteRenderer>();
             m_SpriteRenderer.color = Color.red;
-            player.GetComponent<PlayerController>().TakeDamage(50);
+            player.GetComponent<PlayerController>().TakeDamage(10);
 
    
             attackFinishedTimer = Time.time + attackFinishedWaitTime;
