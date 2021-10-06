@@ -7,13 +7,13 @@ using TMPro;
 public class CoinPicker : MonoBehaviour
 {
     public TextMeshProUGUI MyScoreText;
-    private int scoreNumber;
+    public int scoreNumber;
 
 
     private void Start()
     {
         scoreNumber = 0;
-       // MyScoreText.text = "Coins: " + scoreNumber;
+       
        
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,9 +22,19 @@ public class CoinPicker : MonoBehaviour
         {
             scoreNumber++;
             Destroy(collision.gameObject);
-            //MyScoreText.text = "Coins: " + scoreNumber;
-            MyScoreText.text = "Coins: " + scoreNumber.ToString();
+            MyScoreText.text = "Bullets: " + scoreNumber.ToString();
         }
+       /* if (GetComponent<PlayerController>().shoot)
+        {
+            scoreNumber = scoreNumber - 1;
+            MyScoreText.text = "Coins: " + scoreNumber.ToString();
+        }*/
+    }
+
+    public void MinusBullet()
+    {
+        scoreNumber = scoreNumber - 1;
+        MyScoreText.text = "Bullets: " + scoreNumber.ToString();
     }
 
 

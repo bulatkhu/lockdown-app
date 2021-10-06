@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour
     private float waitBeforeMoving;
     private bool canMove = true;
     private Shooting shooting;
-   
+    //public bool shoot;
+    //public CoinPicker bulletscore;
 
     //private Animation anim;
 
@@ -40,7 +41,10 @@ public class PlayerController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         //anim = GetComponent<Animation>();
         shooting = GetComponent<Shooting>();
-   
+        //bulletscore = GetComponent<CoinPicker>().MinusBullet();
+
+
+
     }
     void Update()
     {
@@ -119,12 +123,14 @@ public class PlayerController : MonoBehaviour
         waitBeforeMoving = Time.time + moveWaitTime;
     }
 
-    void Shoot()
+    public void Shoot()
     {
+        //shoot = true;
         waitBeforeShooting = Time.time + shootWaitTime;
         StopMovement();
         animator.Play("Shooting");
         shooting.Shoot(transform.localScale.x);
+        
 
     }
 
@@ -140,6 +146,9 @@ public class PlayerController : MonoBehaviour
         {
             if (Time.time > waitBeforeShooting)
                 Shoot();
+            GetComponent<CoinPicker>().MinusBullet();
+
+           //bulletscore = bulletscore - 1;
         }
 
     }
