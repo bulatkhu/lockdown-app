@@ -44,6 +44,7 @@ public class HealthBar : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene("GameOver");
+
     }
     
 }

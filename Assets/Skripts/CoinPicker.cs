@@ -9,20 +9,25 @@ public class CoinPicker : MonoBehaviour
     public TextMeshProUGUI MyScoreText;
     public int scoreNumber;
 
- 
+    private GameObject obj;
+    AudioSource aSource;
+
+    private void Start()
+    {
+        obj = GameObject.Find("CoinAudio");
+        aSource = obj.GetComponent<AudioSource>();
+    }
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.tag == "Coin")
         {
+            
             scoreNumber++;
             Destroy(collision.gameObject);
             MyScoreText.text =  scoreNumber.ToString();
+            aSource.Play();
         }
-       /* if (GetComponent<PlayerController>().shoot)
-        {
-            scoreNumber = scoreNumber - 1;
-            MyScoreText.text = "Coins: " + scoreNumber.ToString();
-        }*/
+       
     }
 
     public void MinusBullet()
