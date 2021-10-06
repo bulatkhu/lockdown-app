@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 15f;
     [SerializeField]
-    private float damageAmmount = 35f;
+    private float damageAmmount = 20f;
     private Vector3 moveVector = Vector3.zero;
     private Vector3 tempScale;
     private void Update()

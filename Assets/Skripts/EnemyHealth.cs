@@ -10,18 +10,6 @@ public class EnemyHealth : MonoBehaviour
  
     private bool enemyDied;
 
-
-   
-    private void Start()
-
-    {
-        
-        //slider = GetComponent<Slider>();
-        //enemyScript = GetComponent<EnemyController>();
-        //enemy = GameObject.FindWithTag("Enemy");
-       // currentHP = maxHP;
-       // MaxHp(maxHP);
-    }
     private void Update()
     {
         if (enemyDied)
