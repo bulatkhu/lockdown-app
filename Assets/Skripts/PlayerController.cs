@@ -28,8 +28,10 @@ public class PlayerController : MonoBehaviour
     private Shooting shooting;
     //public bool shoot;
     //public CoinPicker bulletscore;
-
+    private TextMesh scoreText;
+    bool scoreTextCheck;
     //private Animation anim;
+    public bool canShoot = true;
 
     void Start()
     {
@@ -42,9 +44,8 @@ public class PlayerController : MonoBehaviour
         //anim = GetComponent<Animation>();
         shooting = GetComponent<Shooting>();
         //bulletscore = GetComponent<CoinPicker>().MinusBullet();
-
-
-
+        scoreText = GameObject.Find("Score").GetComponent<TextMesh>();
+        canShoot = true;
     }
     void Update()
     {
@@ -55,6 +56,7 @@ public class PlayerController : MonoBehaviour
 
         Shooting();
         CheckIfCanMove();
+        CheckIfCanShoot();
         // FaceDirection(true);
 
 
@@ -66,10 +68,11 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isRunning", true);
             FaceDirection(true);
+
             StepSound();
         }
 
-        if (xAxis < 0 )
+        if (xAxis < 0)
         {
             animator.SetBool("isRunning", true);
             FaceDirection(false);
@@ -80,47 +83,32 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isRunning", false);
             audioSource.Stop();
-        }
-       if (yAxis != 0f)
+        }     
+        if (yAxis != 0f)
         {
             animator.SetBool("isRunning", true);
             FaceDirection(false);
             StepSound();
         }
-        
        
-        /*if (xAxis == 0)
-        { 
-            animator.SetBool("isRunning", false);
-            audioSource.Stop();
+     
 
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            animator.SetBool("isRunning", true);
-            //spriteRenderer.flipX = true;
-            //tempScale.x = -1f;
-           FaceDirection(false);
-            StepSound();
-        }
-        else
-        {
-            animator.SetBool("isRunning", true);
-            //spriteRenderer.flipX = false;
-            //tempScale.x = 1f;
-            //FaceDirection(true);
-            StepSound();
-        }
-        */
     }
 
     public void FaceDirection(bool faceRight)
     {
         tempScale = transform.localScale;
         if (faceRight)
+        {
             tempScale.x = 1f;
-        else
+        }
+        else 
+        {
             tempScale.x = -1f;
+            
+            }
+       
+
 
         transform.localScale = tempScale;
     }
@@ -133,15 +121,24 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot()
     {
-        //shoot = true;
+       
         waitBeforeShooting = Time.time + shootWaitTime;
         StopMovement();
         animator.Play("Shooting");
         shooting.Shoot(transform.localScale.x);
         
-
+       
     }
 
+    void CheckIfCanShoot()       
+    {
+      if (GetComponent<CoinPicker>().scoreNumber <= 0)
+          canShoot = false;
+      else
+        {
+            canShoot = true;
+        }
+   }
     void CheckIfCanMove()
     {
         if (Time.time > waitBeforeMoving)
@@ -150,21 +147,21 @@ public class PlayerController : MonoBehaviour
 
     void Shooting()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (canShoot == true && Input.GetKeyDown(KeyCode.Space))
         {
             if (Time.time > waitBeforeShooting)
                 Shoot();
             GetComponent<CoinPicker>().MinusBullet();
 
-           //bulletscore = bulletscore - 1;
+            //bulletscore = bulletscore - 1;
         }
 
     }
     //Movement !!!!!!!!!!!!
     void HandleMovement()
     {
-       float xAxis = Input.GetAxis("Horizontal");
-       float yAxis = Input.GetAxis("Vertical");
+        float xAxis = Input.GetAxis("Horizontal");
+        float yAxis = Input.GetAxis("Vertical");
 
         tempPos = transform.position;
         tempPos.x += xAxis * speed * Time.deltaTime;

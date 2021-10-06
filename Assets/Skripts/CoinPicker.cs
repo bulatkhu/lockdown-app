@@ -9,20 +9,14 @@ public class CoinPicker : MonoBehaviour
     public TextMeshProUGUI MyScoreText;
     public int scoreNumber;
 
-
-    private void Start()
-    {
-        scoreNumber = 0;
-       
-       
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
+ 
+    public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.tag == "Coin")
         {
             scoreNumber++;
             Destroy(collision.gameObject);
-            MyScoreText.text = "Bullets: " + scoreNumber.ToString();
+            MyScoreText.text =  scoreNumber.ToString();
         }
        /* if (GetComponent<PlayerController>().shoot)
         {
@@ -34,9 +28,8 @@ public class CoinPicker : MonoBehaviour
     public void MinusBullet()
     {
         scoreNumber = scoreNumber - 1;
-        MyScoreText.text = "Bullets: " + scoreNumber.ToString();
+        MyScoreText.text =  scoreNumber.ToString();
     }
 
-
-
+    
 }
