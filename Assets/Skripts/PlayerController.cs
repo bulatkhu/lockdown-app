@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float speed;
     [SerializeField]
-    private float minBoundY = -3.1f, maxBoundY = 0f, minBoundX = -11.6f, maxBoundX = 110f;
+    private float minBoundY = -3.1f, maxBoundY = 0f, minBoundX = -5.2f, maxBoundX = 110f;
     private float xAxis, yAxis;
     private Vector3 tempPos;
     private Vector3 tempScale;
@@ -52,13 +52,13 @@ public class PlayerController : MonoBehaviour
         float xAxis = Input.GetAxis("Horizontal");
         float yAxis = Input.GetAxis("Vertical");
         HandleMovement();
-       
+
         Shooting();
         CheckIfCanMove();
         // FaceDirection(true);
 
-    
- 
+
+
         if (!canMove)
             return;
 
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
             StepSound();
         }
 
-        if (xAxis < 0)
+        if (xAxis < 0 )
         {
             animator.SetBool("isRunning", true);
             FaceDirection(false);
@@ -81,6 +81,14 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isRunning", false);
             audioSource.Stop();
         }
+       if (yAxis != 0f)
+        {
+            animator.SetBool("isRunning", true);
+            FaceDirection(false);
+            StepSound();
+        }
+        
+       
         /*if (xAxis == 0)
         { 
             animator.SetBool("isRunning", false);

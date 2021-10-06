@@ -13,7 +13,7 @@ public class NextLevel : MonoBehaviour
         
         if (transform.position.x > 109)
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
         }
     }
     
