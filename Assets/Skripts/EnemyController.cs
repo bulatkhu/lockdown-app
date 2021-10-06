@@ -22,6 +22,10 @@ public class EnemyController : MonoBehaviour
 
     SpriteRenderer m_SpriteRenderer;
     GameObject player;
+    //public int maxHP = 100;
+    //public int currentHP;
+   // public EnemyHealth hp;
+    GameObject enemy;
 
     public bool ifAttackCalled = false;
 
@@ -29,6 +33,9 @@ public class EnemyController : MonoBehaviour
     {
         target = GameObject.FindWithTag("Player").transform;
         player = GameObject.FindWithTag("Player");
+        //enemy = GameObject.FindWithTag("Enemy");
+        //currentHP = maxHP;
+        //enemy.GetComponent<EnemyHealth>().MaxHp(maxHP);
     }
 
     private void Update()
@@ -39,8 +46,8 @@ public class EnemyController : MonoBehaviour
 
     void SearchPlayer()
     {
-        //if (!target)
-            //return;
+        if (!target)
+            return;
 
         if (Vector3.Distance(transform.position, target.position) > stopDistance)
         {
