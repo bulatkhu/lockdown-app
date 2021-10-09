@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     bool scoreTextCheck;
     //private Animation anim;
     public bool canShoot = true;
+    private GameObject shootobj;
 
     void Start()
     {
@@ -46,6 +47,8 @@ public class PlayerController : MonoBehaviour
         //bulletscore = GetComponent<CoinPicker>().MinusBullet();
         scoreText = GameObject.Find("Score").GetComponent<TextMesh>();
         canShoot = true;
+        shootobj = GameObject.Find("ShootAudio");
+        
     }
     void Update()
     {
@@ -84,11 +87,12 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isRunning", false);
             audioSource.Stop();
         }     
-        if (yAxis != 0f)
+        if (yAxis != 0)
         {
             animator.SetBool("isRunning", true);
             FaceDirection(false);
             StepSound();
+
         }
        
      
@@ -152,6 +156,7 @@ public class PlayerController : MonoBehaviour
             if (Time.time > waitBeforeShooting)
                 Shoot();
             GetComponent<CoinPicker>().MinusBullet();
+            shootobj.GetComponent<AudioSource>().Play();
 
             //bulletscore = bulletscore - 1;
         }
